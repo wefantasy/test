@@ -1,43 +1,175 @@
-# Svelte + Vite
+# Collector
 
-This template should help get you started developing with Svelte in Vite.
+<div align="center">
 
-## Recommended IDE Setup
+![SvelteKit](https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![DaisyUI](https://img.shields.io/badge/DaisyUI-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white)
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+**一个现代化、简约设计的网址导航页面**
 
-## Need an official Svelte framework?
+[在线预览](https://eruaerf0m6oq.space.minimax.io) · [报告问题](https://github.com/your-repo/issues) · [功能建议](https://github.com/your-repo/issues)
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+</div>
 
-## Technical considerations
+---
 
-**Why use this over SvelteKit?**
+## ✨ 功能特性
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+- 📁 **多级分类管理** - 支持无限层级的文件夹嵌套，灵活组织网站收藏
+- 🔍 **模糊搜索** - 基于 Fuse.js 的智能搜索，支持标题、描述关键字高亮
+- 🎨 **主题切换** - 支持亮色/暗色主题，自动保存用户偏好
+- 🌐 **国际化** - 支持中文/英文界面切换
+- 📱 **响应式设计** - 完美适配桌面端和移动端
+- ⌨️ **快捷键支持** - 按 `/` 快速聚焦搜索框
+- 🔝 **回到顶部** - 平滑滚动回到页面顶部
+- 📌 **固定侧边栏** - 导航栏固定，内容区独立滚动
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+## 🖼️ 截图预览
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+| 亮色主题 | 暗色主题 |
+|---------|---------|
+| ![Light Theme](./screenshots/light.png) | ![Dark Theme](./screenshots/dark.png) |
 
-**Why include `.vscode/extensions.json`?**
+## 🛠️ 技术栈
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+| 技术 | 说明 |
+|------|------|
+| [SvelteKit](https://kit.svelte.dev/) | 全栈 Web 框架 |
+| [TailwindCSS](https://tailwindcss.com/) | 原子化 CSS 框架 |
+| [DaisyUI](https://daisyui.com/) | TailwindCSS 组件库 |
+| [Iconify](https://iconify.design/) | 统一图标解决方案 |
+| [Fuse.js](https://fusejs.io/) | 轻量级模糊搜索库 |
 
-**Why enable `checkJs` in the JS template?**
+## 📦 快速开始
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+### 环境要求
 
-**Why is HMR not preserving my local component state?**
+- Node.js 18+
+- npm 或 pnpm
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
+### 安装依赖
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```bash
+npm install
 ```
+
+### 开发模式
+
+```bash
+npm run dev
+```
+
+访问 http://localhost:5173 查看效果
+
+### 构建生产版本
+
+```bash
+npm run build
+```
+
+构建产物将输出到 `build` 目录
+
+### 预览生产版本
+
+```bash
+npm run preview
+```
+
+## 📁 项目结构
+
+```
+nav-collector/
+├── src/
+│   ├── lib/
+│   │   ├── components/       # Svelte 组件
+│   │   │   ├── Navbar.svelte
+│   │   │   ├── Sidebar.svelte
+│   │   │   ├── ContentArea.svelte
+│   │   │   ├── SiteCard.svelte
+│   │   │   ├── FolderCard.svelte
+│   │   │   ├── Footer.svelte
+│   │   │   ├── MobileDrawer.svelte
+│   │   │   └── BackToTop.svelte
+│   │   ├── data/
+│   │   │   └── sites.json    # 导航数据
+│   │   ├── stores.js         # 状态管理
+│   │   └── i18n.js           # 国际化配置
+│   ├── routes/
+│   │   ├── +layout.svelte    # 全局布局
+│   │   ├── +layout.js        # 预渲染配置
+│   │   └── +page.svelte      # 首页
+│   ├── app.css               # 全局样式
+│   └── app.html              # HTML 模板
+├── svelte.config.js          # SvelteKit 配置
+├── tailwind.config.js        # TailwindCSS 配置
+├── postcss.config.js         # PostCSS 配置
+└── vite.config.js            # Vite 配置
+```
+
+## ⚙️ 自定义配置
+
+### 修改导航数据
+
+编辑 `src/lib/data/sites.json` 文件：
+
+```json
+[
+  {
+    "title": "分类名称",
+    "type": "folder",
+    "children": [
+      {
+        "title": "网站标题",
+        "url": "https://example.com",
+        "icon": "",
+        "description": "网站描述"
+      }
+    ]
+  }
+]
+```
+
+### 添加新主题
+
+编辑 `tailwind.config.js`：
+
+```javascript
+daisyui: {
+  themes: ['light', 'dark', 'cupcake', 'corporate'],
+}
+```
+
+## ⌨️ 快捷键
+
+| 快捷键 | 功能 |
+|--------|------|
+| `/` | 聚焦搜索框 |
+
+## 🤝 贡献指南
+
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 提交 Pull Request
+
+## 📄 许可证
+
+本项目基于 [MIT](LICENSE) 许可证开源。
+
+## 🙏 致谢
+
+- [SvelteKit](https://kit.svelte.dev/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [DaisyUI](https://daisyui.com/)
+- [Iconify](https://iconify.design/)
+- [Fuse.js](https://fusejs.io/)
+
+---
+
+<div align="center">
+
+**如果这个项目对你有帮助，请给一个 ⭐ Star 支持一下！**
+
+</div>

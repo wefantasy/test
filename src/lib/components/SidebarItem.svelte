@@ -1,29 +1,45 @@
 <script>
   import Icon from '@iconify/svelte';
-  import { selectedPath } from '../stores.js';
+  import { selectedPath } from '$lib/stores.js';
 
   export let item;
   export let path = [];
-  export let expandedFolders = {};
 
   $: pathKey = path.join('/');
-  $: isExpanded = expandedFolders[pathKey] || false;
+
+  // Check if this folder is in the current selected path (should be expanded)
+  $: isInSelectedPath = (() => {
+    // If "allSites" is selected, nothing should be expanded
+    if ($selectedPath[0] === 'allSites') return false;
+
+    // Check if selectedPath starts with this folder's path
+    if (path.length > $selectedPath.length) return false;
+
+    for (let i = 0; i < path.length; i++) {
+      if (path[i] !== $selectedPath[i]) return false;
+    }
+    return true;
+  })();
+
+  $: isExpanded = isInSelectedPath;
   $: isSelected = JSON.stringify($selectedPath) === JSON.stringify(path);
 
   function handleToggle(e) {
     e.stopPropagation();
-    if (item.type === 'folder') {
-      expandedFolders[pathKey] = !isExpanded;
-      expandedFolders = expandedFolders;
+    // Toggle: if currently expanded (selected), go to parent or allSites
+    if (isExpanded && isSelected) {
+      if (path.length > 1) {
+        selectedPath.set(path.slice(0, -1));
+      } else {
+        selectedPath.set(['allSites']);
+      }
+    } else {
+      selectedPath.set(path);
     }
   }
 
   function handleSelect() {
     selectedPath.set(path);
-    if (item.type === 'folder') {
-      expandedFolders[pathKey] = true;
-      expandedFolders = expandedFolders;
-    }
   }
 </script>
 
@@ -40,7 +56,7 @@
         />
         <span>{item.title}</span>
       </span>
-      {#if item.children && item.children.length > 0}
+      {#if item.children && item.children.some(c => c.type === 'folder')}
         <button class="p-1" on:click={handleToggle}>
           <Icon
             icon={isExpanded ? 'mdi:chevron-down' : 'mdi:chevron-right'}
@@ -54,7 +70,7 @@
       <ul class="ml-2">
         {#each item.children as child}
           {#if child.type === 'folder'}
-            <svelte:self item={child} path={[...path, child.title]} bind:expandedFolders />
+            <svelte:self item={child} path={[...path, child.title]} />
           {/if}
         {/each}
       </ul>

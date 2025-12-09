@@ -1,10 +1,8 @@
 <script>
   import Icon from '@iconify/svelte';
-  import { navData, selectedPath } from '../stores.js';
-  import { t } from '../i18n.js';
+  import { navData, selectedPath } from '$lib/stores.js';
+  import { t } from '$lib/i18n.js';
   import SidebarItem from './SidebarItem.svelte';
-
-  let expandedFolders = {};
 
   function handleSelectAllSites() {
     selectedPath.set(['allSites']);
@@ -33,7 +31,7 @@
 
     <!-- Navigation Items -->
     {#each navData.filter(item => !item.isAllSites) as item}
-      <SidebarItem {item} path={[item.title]} bind:expandedFolders />
+      <SidebarItem {item} path={[item.title]} />
     {/each}
   </ul>
 </div>

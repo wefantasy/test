@@ -1,28 +1,22 @@
 <script>
   import Icon from '@iconify/svelte';
-  import { mobileMenuOpen } from '../stores.js';
-  import { t } from '../i18n.js';
+  import { mobileMenuOpen } from '$lib/stores.js';
+  import { t } from '$lib/i18n.js';
   import Sidebar from './Sidebar.svelte';
 
   function handleClose() {
     mobileMenuOpen.set(false);
   }
-
-  function handleBackdropClick(e) {
-    if (e.target === e.currentTarget) {
-      handleClose();
-    }
-  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-  class="fixed inset-0 z-50 lg:hidden"
-  on:click={handleBackdropClick}
->
-  <!-- Backdrop -->
-  <div class="absolute inset-0 bg-black/50"></div>
+<div class="fixed inset-0 z-50 lg:hidden">
+  <!-- Backdrop - Click to close -->
+  <div
+    class="absolute inset-0 bg-black/50"
+    on:click={handleClose}
+  ></div>
 
   <!-- Drawer -->
   <div class="absolute left-0 top-0 h-full w-64 bg-base-100 shadow-xl">

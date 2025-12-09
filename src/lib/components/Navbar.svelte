@@ -1,7 +1,11 @@
 <script>
+  import { onMount } from 'svelte';
   import Icon from '@iconify/svelte';
-  import { theme, toggleTheme, searchQuery, mobileMenuOpen, mobileSearchOpen } from '../stores.js';
-  import { locale, t } from '../i18n.js';
+  import { theme, toggleTheme, searchQuery, mobileMenuOpen, mobileSearchOpen } from '$lib/stores.js';
+  import { locale, t } from '$lib/i18n.js';
+
+  let searchInputDesktop;
+  let searchInputMobile;
 
   function handleToggleMenu() {
     mobileMenuOpen.update(v => !v);
@@ -14,6 +18,32 @@
   function handleToggleLocale() {
     locale.update(l => l === 'zh' ? 'en' : 'zh');
   }
+
+  function handleKeydown(e) {
+    // Ignore if user is typing in an input/textarea
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      return;
+    }
+
+    if (e.key === '/') {
+      e.preventDefault();
+      // Check if mobile or desktop
+      if (window.innerWidth >= 1024) {
+        searchInputDesktop?.focus();
+      } else {
+        mobileSearchOpen.set(true);
+        // Wait for the mobile search bar to render
+        setTimeout(() => {
+          searchInputMobile?.focus();
+        }, 100);
+      }
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
+  });
 </script>
 
 <nav class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-6 sticky top-0 z-40">
@@ -42,8 +72,9 @@
           <Icon icon="mdi:magnify" class="text-lg" />
         </span>
         <input
+          bind:this={searchInputDesktop}
           type="text"
-          placeholder={$t('searchPlaceholder')}
+          placeholder="{$t('searchPlaceholder')} (Press /)"
           class="input input-bordered w-full pl-10"
           bind:value={$searchQuery}
         />
@@ -109,6 +140,7 @@
           <Icon icon="mdi:magnify" class="text-lg" />
         </span>
         <input
+          bind:this={searchInputMobile}
           type="text"
           placeholder={$t('searchPlaceholder')}
           class="input input-bordered w-full pl-10"

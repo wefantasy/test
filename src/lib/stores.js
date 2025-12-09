@@ -1,4 +1,5 @@
-import { writable, derived, get } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
+import { browser } from '$app/environment';
 import Fuse from 'fuse.js';
 import sitesData from './data/sites.json';
 
@@ -136,7 +137,7 @@ export const searchResults = derived(_searchQuery, ($searchQuery) => {
 
 // Initialize theme from localStorage
 export function initTheme() {
-  if (typeof window !== 'undefined') {
+  if (browser) {
     const savedTheme = localStorage.getItem('theme') || 'light';
     theme.set(savedTheme);
     document.documentElement.setAttribute('data-theme', savedTheme);
@@ -147,7 +148,7 @@ export function initTheme() {
 export function toggleTheme() {
   theme.update(t => {
     const newTheme = t === 'light' ? 'dark' : 'light';
-    if (typeof window !== 'undefined') {
+    if (browser) {
       localStorage.setItem('theme', newTheme);
       document.documentElement.setAttribute('data-theme', newTheme);
     }

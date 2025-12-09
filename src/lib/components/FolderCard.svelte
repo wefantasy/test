@@ -1,6 +1,6 @@
 <script>
   import Icon from '@iconify/svelte';
-  import { selectedPath } from '../stores.js';
+  import { selectedPath } from '$lib/stores.js';
 
   export let folder;
 

@@ -1,7 +1,7 @@
 <script>
   import Icon from '@iconify/svelte';
-  import { currentContent, selectedPath, searchQuery, searchResults } from '../stores.js';
-  import { t } from '../i18n.js';
+  import { currentContent, selectedPath, searchQuery, searchResults } from '$lib/stores.js';
+  import { t } from '$lib/i18n.js';
   import SiteCard from './SiteCard.svelte';
   import FolderCard from './FolderCard.svelte';
 
