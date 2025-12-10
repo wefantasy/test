@@ -1,5 +1,5 @@
 {
-  "name": "nav-collector",
+  "name": "collector",
   "private": true,
   "version": "0.0.1",
   "type": "module",
