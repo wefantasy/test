@@ -1,7 +1,7 @@
 <script>
   import Icon from '@iconify/svelte';
   import { navData, selectedPath } from '$lib/stores.js';
-  import { t } from '$lib/i18n.js';
+  import { locale, m } from '$lib/i18n.js';
   import SidebarItem from './SidebarItem.svelte';
 
   function handleSelectAllSites() {
@@ -9,10 +9,11 @@
   }
 
   $: isAllSitesSelected = $selectedPath[0] === 'allSites';
+  $: allSitesLabel = ($locale, m.allSites());
 </script>
 
 <div class="p-4">
-  <ul class="menu menu-sm w-full">
+  <ul class="menu w-full">
     <!-- All Sites -->
     <li>
       <button
@@ -20,14 +21,12 @@
         on:click={handleSelectAllSites}
       >
         <Icon icon="mdi:view-grid" class="text-lg" />
-        <span>{$t('allSites')}</span>
+        <span>{allSitesLabel}</span>
       </button>
     </li>
 
     <!-- Divider -->
-    <li class="my-2">
-      <div class="h-px bg-base-200"></div>
-    </li>
+    <div class="divider m-1"></div>
 
     <!-- Navigation Items -->
     {#each navData.filter(item => !item.isAllSites) as item}

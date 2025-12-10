@@ -8,7 +8,7 @@
 
 **一个现代化、简约设计的网址导航页面**
 
-[在线预览](https://eruaerf0m6oq.space.minimax.io) · [报告问题](https://github.com/your-repo/issues) · [功能建议](https://github.com/your-repo/issues)
+[在线预览](https://wefantasy.github.io/collector/) · [报告问题](https://github.com/wefantasy/collector/issues) · [功能建议](https://github.com/wefantasy/collector/issues)
 
 </div>
 

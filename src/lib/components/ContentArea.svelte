@@ -1,18 +1,19 @@
 <script>
-  import Icon from '@iconify/svelte';
-  import { currentContent, selectedPath, searchQuery, searchResults } from '$lib/stores.js';
-  import { t } from '$lib/i18n.js';
-  import SiteCard from './SiteCard.svelte';
-  import FolderCard from './FolderCard.svelte';
+  import Icon from "@iconify/svelte";
+  import { currentContent, selectedPath, searchQuery, searchResults } from "$lib/stores.js";
+  import { locale, m } from "$lib/i18n.js";
+  import SiteCard from "./SiteCard.svelte";
+  import FolderCard from "./FolderCard.svelte";
 
-  $: breadcrumb = $selectedPath[0] === 'allSites'
-    ? [$t('allSites')]
-    : ['Root', ...$selectedPath];
+  $: allSitesLabel = ($locale, m.allSites());
+  $: noResultsLabel = ($locale, m.noResults());
+
+  $: breadcrumb = $selectedPath[0] === "allSites" ? [allSitesLabel] : ["Root", ...$selectedPath];
 
   function handleBreadcrumbClick(index) {
-    if (index === 0 && $selectedPath[0] !== 'allSites') {
-      selectedPath.set(['allSites']);
-    } else if ($selectedPath[0] === 'allSites') {
+    if (index === 0 && $selectedPath[0] !== "allSites") {
+      selectedPath.set(["allSites"]);
+    } else if ($selectedPath[0] === "allSites") {
       return;
     } else {
       selectedPath.set($selectedPath.slice(0, index));
@@ -22,15 +23,12 @@
 
 <div class="p-4 lg:p-6">
   <!-- Breadcrumb -->
-  <div class="text-sm breadcrumbs mb-4">
+  <div class="text-sm breadcrumbs mb-4 text-secondary">
     <ul>
       {#each breadcrumb as crumb, index}
         <li>
           {#if index < breadcrumb.length - 1}
-            <button
-              class="link link-hover"
-              on:click={() => handleBreadcrumbClick(index)}
-            >
+            <button class="link link-hover" on:click={() => handleBreadcrumbClick(index)}>
               {crumb}
             </button>
           {:else}
@@ -46,7 +44,7 @@
     {#if $searchResults.length === 0}
       <div class="flex flex-col items-center justify-center py-16 text-base-content/50">
         <Icon icon="mdi:file-search-outline" class="text-6xl mb-4" />
-        <p>{$t('noResults')}</p>
+        <p>{noResultsLabel}</p>
       </div>
     {:else}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -75,7 +73,7 @@
     {:else if $currentContent.folders.length === 0}
       <div class="flex flex-col items-center justify-center py-16 text-base-content/50">
         <Icon icon="mdi:folder-open-outline" class="text-6xl mb-4" />
-        <p>{$t('noResults')}</p>
+        <p>{noResultsLabel}</p>
       </div>
     {/if}
   {/if}

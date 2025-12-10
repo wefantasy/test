@@ -1,12 +1,15 @@
 <script>
   import Icon from '@iconify/svelte';
+  import { fly, fade } from 'svelte/transition';
   import { mobileMenuOpen } from '$lib/stores.js';
-  import { t } from '$lib/i18n.js';
+  import { locale, m } from '$lib/i18n.js';
   import Sidebar from './Sidebar.svelte';
 
   function handleClose() {
     mobileMenuOpen.set(false);
   }
+
+  $: closeMenuLabel = ($locale, m.closeMenu());
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -16,17 +19,21 @@
   <div
     class="absolute inset-0 bg-black/50"
     on:click={handleClose}
+    transition:fade={{ duration: 200 }}
   ></div>
 
   <!-- Drawer -->
-  <div class="absolute left-0 top-0 h-full w-64 bg-base-100 shadow-xl">
+  <div
+    class="absolute left-0 top-0 h-full w-64 bg-base-100 shadow-xl"
+    transition:fly={{ x: -264, duration: 300 }}
+  >
     <!-- Header -->
     <div class="flex items-center justify-between p-4 border-b border-base-200">
       <span class="text-lg font-bold text-primary">Collector</span>
       <button
         class="btn btn-ghost btn-square btn-sm"
         on:click={handleClose}
-        aria-label={$t('closeMenu')}
+        aria-label={closeMenuLabel}
       >
         <Icon icon="mdi:close" class="text-lg" />
       </button>

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "allSites": "全部站点",
+  "search": "搜索网站...",
+  "searchPlaceholder": "搜索标题或描述...",
+  "searchPlaceholderShortcut": "搜索标题或描述... (Press /)",
+  "noResults": "没有找到匹配的网站",
+  "copyright": "© 2024 Collector. All rights reserved.",
+  "lightTheme": "浅色",
+  "darkTheme": "深色",
+  "toggleTheme": "切换主题",
+  "toggleLanguage": "切换语言",
+  "openMenu": "打开菜单",
+  "closeMenu": "关闭菜单",
+  "folder": "文件夹",
+  "website": "网站",
+  "visitSite": "访问网站",
+  "backToTop": "回到顶部"
+}

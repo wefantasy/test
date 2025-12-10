@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 import sitesData from './data/sites.json';
 
 // Theme store
-export const theme = writable('light');
+export const theme = writable('corporate');
 
 // Search query store (internal)
 const _searchQuery = writable('');
@@ -138,7 +138,7 @@ export const searchResults = derived(_searchQuery, ($searchQuery) => {
 // Initialize theme from localStorage
 export function initTheme() {
   if (browser) {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'corporate';
     theme.set(savedTheme);
     document.documentElement.setAttribute('data-theme', savedTheme);
   }
@@ -147,7 +147,7 @@ export function initTheme() {
 // Toggle theme
 export function toggleTheme() {
   theme.update(t => {
-    const newTheme = t === 'light' ? 'dark' : 'light';
+    const newTheme = t === 'corporate' ? 'business' : 'corporate';
     if (browser) {
       localStorage.setItem('theme', newTheme);
       document.documentElement.setAttribute('data-theme', newTheme);
