@@ -22,14 +22,12 @@
 - 🌐 **国际化** - 支持中文/英文界面切换
 - 📱 **响应式设计** - 完美适配桌面端和移动端
 - ⌨️ **快捷键支持** - 按 `/` 快速聚焦搜索框
-- 🔝 **回到顶部** - 平滑滚动回到页面顶部
-- 📌 **固定侧边栏** - 导航栏固定，内容区独立滚动
 
 ## 🖼️ 截图预览
 
 | 亮色主题 | 暗色主题 |
 |---------|---------|
-| ![Light Theme](./screenshots/light.png) | ![Dark Theme](./screenshots/dark.png) |
+| ![Light Theme](./screenshots/light.jpg) | ![Dark Theme](./screenshots/dark.jpg) |
 
 ## 🛠️ 技术栈
 
@@ -41,7 +39,50 @@
 | [Iconify](https://iconify.design/) | 统一图标解决方案 |
 | [Fuse.js](https://fusejs.io/) | 轻量级模糊搜索库 |
 
-## 📦 快速开始
+## ▶️ 快速开始
+
+### 使用方法
+
+1. [点此 Fork](https://github.com/wefantasy/collector/fork) 这个项目到你的 GitHub 账户
+2. 在你 Fork 的仓库下点击 `Actions` -> `I understand my workflows, go ahead and enable them` 启动流水线
+3. 点击 `Actions` -> `Build and Deploy` -> `Run workflow`，选择 `main` 分支并运行流水线，**等待运行完成**
+4. 在 `Settings` -> `Pages` -> `Branch` 中选择 `gh-pages` 分支并 `Save`
+5. 修改 `src/lib/data/sites.json` 文件并push到 `main` 分支
+6. 访问你的站点：`https://your-github-username.github.io/collector/`
+
+### 修改导航数据
+
+编辑 `src/lib/data/sites.json` 文件：
+
+```json
+[
+  {
+    "title": "分类名称",
+    "type": "folder",
+    "children": [
+      {
+        "title": "网站标题",
+        "url": "https://example.com",
+        "icon": "",
+        "description": "网站描述"
+      }
+    ]
+  }
+]
+```
+
+### 添加新主题
+
+编辑 `tailwind.config.js`：
+
+```javascript
+daisyui: {
+  themes: ['light', 'dark', 'cupcake', 'corporate'],
+}
+```
+
+
+## 📦 开发环境准备
 
 ### 环境要求
 
@@ -51,13 +92,13 @@
 ### 安装依赖
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 开发模式
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 访问 http://localhost:5173 查看效果
@@ -65,7 +106,7 @@ npm run dev
 ### 构建生产版本
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 构建产物将输出到 `build` 目录
@@ -73,7 +114,7 @@ npm run build
 ### 预览生产版本
 
 ```bash
-npm run preview
+pnpm run preview
 ```
 
 ## 📁 项目结构
@@ -105,39 +146,6 @@ nav-collector/
 ├── tailwind.config.js        # TailwindCSS 配置
 ├── postcss.config.js         # PostCSS 配置
 └── vite.config.js            # Vite 配置
-```
-
-## ⚙️ 自定义配置
-
-### 修改导航数据
-
-编辑 `src/lib/data/sites.json` 文件：
-
-```json
-[
-  {
-    "title": "分类名称",
-    "type": "folder",
-    "children": [
-      {
-        "title": "网站标题",
-        "url": "https://example.com",
-        "icon": "",
-        "description": "网站描述"
-      }
-    ]
-  }
-]
-```
-
-### 添加新主题
-
-编辑 `tailwind.config.js`：
-
-```javascript
-daisyui: {
-  themes: ['light', 'dark', 'cupcake', 'corporate'],
-}
 ```
 
 ## ⌨️ 快捷键
