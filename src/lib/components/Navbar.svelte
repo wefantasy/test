@@ -64,7 +64,7 @@
 	</div>
 
 	<div class="flex-1">
-		<a href="/" class="text-xl text-primary">
+		<a href="./" class="text-xl text-primary">
 			<img src="./favicon.svg" class="size-10 inline" alt="Collector Logo" />
 			<span class="hidden lg:inline"> Collector </span>
 		</a>
